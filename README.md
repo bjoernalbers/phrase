@@ -1,0 +1,3 @@
+# phrase - the passphrase generator
+
+Work in progress...
