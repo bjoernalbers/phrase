@@ -4,6 +4,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"math/rand"
 	"strings"
 )
@@ -15,9 +16,17 @@ var words = []string{
 	"staple",
 }
 
+func init() {
+	log.SetFlags(0)
+	log.SetPrefix("phrase: ")
+}
+
 func main() {
 	flag.Parse()
-	randomWords, _ := pick(words, 4)
+	randomWords, err := pick(words, 4)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(strings.Join(randomWords, " "))
 }
 
