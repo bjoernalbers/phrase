@@ -1,5 +1,7 @@
-.PHONY: build
-build:
+EXE := ./phrase
+SRC := $(shell find . -name '*.go' -or -name 'go.mod')
+
+$(EXE): $(SRC)
 	@go build
 
 .PHONY: check
