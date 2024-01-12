@@ -5,6 +5,6 @@ $(EXE): $(SRC)
 	@go build
 
 .PHONY: check
-check:
+check: $(EXE)
 	[[ $$(go run .) !=  $$(go run .) ]]
 	go run . | grep -Eq "^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}$$"
