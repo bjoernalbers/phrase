@@ -10,6 +10,6 @@ check: $(EXE)
 	# - display usage instructions
 	@$(EXE) -h 2>&1 | grep -q ^Usage
 	# - return each time a different passphrase
-	@[[ $$(go run .) !=  $$(go run .) ]]
+	@[[ `$(EXE)` != `$(EXE)` ]]
 	# - generate passphrases with 4 lowercase words by default
-	@go run . | grep -Eq "^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}$$"
+	@$(EXE) | grep -Eq "^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}$$"
