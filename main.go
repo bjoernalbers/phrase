@@ -2,6 +2,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math/rand"
 	"strings"
@@ -15,6 +16,7 @@ var words = []string{
 }
 
 func main() {
+	flag.Parse()
 	randomWords, _ := pick(words, 4)
 	fmt.Println(strings.Join(randomWords, " "))
 }
