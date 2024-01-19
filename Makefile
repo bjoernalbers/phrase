@@ -13,3 +13,5 @@ check: $(EXE)
 	@[[ `$(EXE)` != `$(EXE)` ]]
 	# - generate passphrases with 4 lowercase words by default
 	@$(EXE) | grep -Eq "^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}$$"
+	# - exit with error when list does not exist
+	@if $(EXE) -l no-such-list 2>/dev/null; then false; fi

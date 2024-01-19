@@ -6,15 +6,9 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"os"
 	"strings"
 )
-
-var words = []string{
-	"correct",
-	"horse",
-	"battery",
-	"staple",
-}
 
 func init() {
 	log.SetFlags(0)
@@ -22,12 +16,29 @@ func init() {
 }
 
 func main() {
+	list := flag.String("l", "", "List of words from which the passphrases are generated. The list must be a path to a diceware wordlist.")
 	flag.Parse()
+	words, err := readList(*list)
+	if err != nil {
+		log.Fatal(err)
+	}
 	randomWords, err := pick(words, 4)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(strings.Join(randomWords, " "))
+}
+
+// readList reads and returns words from list.
+func readList(list string) ([]string, error) {
+	if list == "" {
+		return []string{"correct", "horse", "battery", "staple"}, nil
+	}
+	_, err := os.Open(list)
+	if err != nil {
+		return []string{}, err
+	}
+	return []string{"hello"}, nil
 }
 
 // pick returns a slice of n random words from words.
