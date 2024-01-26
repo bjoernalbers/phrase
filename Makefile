@@ -15,3 +15,5 @@ check: $(EXE)
 	@$(EXE) | grep -Eq "^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}$$"
 	# - exit with error when list does not exist
 	@if $(EXE) -l no-such-list 2>/dev/null; then false; fi
+	# - allow to chose a custom list of words
+	@$(EXE) -l testdata/gopher.txt | grep -Eq "^gopher gopher gopher gopher$$"

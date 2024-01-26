@@ -2,8 +2,10 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"math/rand"
 	"os"
@@ -34,11 +36,23 @@ func readList(list string) ([]string, error) {
 	if list == "" {
 		return []string{"correct", "horse", "battery", "staple"}, nil
 	}
-	_, err := os.Open(list)
+	f, err := os.Open(list)
 	if err != nil {
 		return []string{}, err
 	}
-	return []string{"hello"}, nil
+	defer f.Close()
+	words, err := read(f)
+	return words, nil
+}
+
+// read reads and returns words of r
+func read(r io.Reader) (words []string, err error) {
+	scanner := bufio.NewScanner(r)
+	for scanner.Scan() {
+		_, word, _ := strings.Cut(scanner.Text(), "\t")
+		words = append(words, word)
+	}
+	return words, err
 }
 
 // pick returns a slice of n random words from words.
