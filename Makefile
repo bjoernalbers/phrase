@@ -17,3 +17,5 @@ check: $(EXE)
 	@if $(EXE) -l no-such-list 2>/dev/null; then false; fi
 	# - allow to chose a custom list of words
 	@$(EXE) -l testdata/gopher.txt | grep -Eq "^gopher gopher gopher gopher$$"
+	# - not return fake passphrases
+	@if $(EXE) | grep -Eq 'correct|horse|battery|staple'; then false; fi
