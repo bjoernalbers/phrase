@@ -10,6 +10,8 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+
+	"github.com/bjoernalbers/phrase/lists"
 )
 
 func init() {
@@ -34,7 +36,7 @@ func main() {
 // readList reads and returns words from list.
 func readList(list string) ([]string, error) {
 	if list == "" {
-		return []string{"correct", "horse", "battery", "staple"}, nil
+		return lists.List, nil
 	}
 	f, err := os.Open(list)
 	if err != nil {
