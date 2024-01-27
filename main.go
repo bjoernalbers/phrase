@@ -35,15 +35,16 @@ func main() {
 
 // readList reads and returns words from list.
 func readList(list string) ([]string, error) {
-	if list == "" {
-		return lists.List, nil
+	words, ok := lists.Lists[list]
+	if ok {
+		return words, nil
 	}
 	f, err := os.Open(list)
 	if err != nil {
 		return []string{}, err
 	}
 	defer f.Close()
-	words, err := read(f)
+	words, err = read(f)
 	return words, nil
 }
 
