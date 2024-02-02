@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bjoernalbers/phrase/lists"
+	"github.com/bjoernalbers/phrase/wordlists"
 )
 
 func init() {
@@ -35,7 +35,7 @@ func main() {
 
 // readList reads and returns words from list.
 func readList(list string) ([]string, error) {
-	words, ok := lists.Lists[list]
+	words, ok := wordlists.Lists[list]
 	if ok {
 		return words, nil
 	}

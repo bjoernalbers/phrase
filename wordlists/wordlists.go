@@ -1,5 +1,5 @@
-// Package lists provides lists of words to generate passphrases from.
-package lists
+// Package wordlists provides lists of words to generate passphrases from.
+package wordlists
 
 import (
 	"fmt"
