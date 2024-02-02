@@ -17,6 +17,16 @@ const ValidWordRegexp = `\A[a-z]{3,9}\z`
 // two-letter language code as key.
 var wordlists = map[string][]string{}
 
+// Get returns wordlist by language.
+// If no wordlist exists for that language, an error is returned.
+func Get(language string) (wordlist []string, err error) {
+	wordlist, ok := wordlists[language]
+	if !ok {
+		return []string{}, fmt.Errorf("No such wordlist: %q", language)
+	}
+	return wordlist, nil
+}
+
 // ReadFile reads and returns wordlist from filename.
 func ReadFile(filename string) (wordlist []string, err error) {
 	f, err := os.Open(filename)
