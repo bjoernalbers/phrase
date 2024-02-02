@@ -17,6 +17,16 @@ func equal(s1, s2 []string) bool {
 	return true
 }
 
+func TestWordlists(t *testing.T) {
+	for language, wordlist := range wordlists {
+		for _, word := range wordlist {
+			if err := ValidateWord(word); err != nil {
+				t.Errorf("wordlist[%q] contains invalid word %q\n", language, word)
+			}
+		}
+	}
+}
+
 func TestReadFile(t *testing.T) {
 	tests := []struct {
 		in      string
