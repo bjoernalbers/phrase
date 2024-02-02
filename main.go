@@ -30,11 +30,11 @@ func main() {
 		// TODO: Replace fake data with real wordlist.
 		wordlist = []string{"correct", "horse", "battery", "staple"}
 	}
-	randomWords, err := pick(wordlist, 4)
+	passphrase, err := pick(wordlist, 4)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(strings.Join(randomWords, " "))
+	fmt.Println(strings.Join(passphrase, " "))
 }
 
 // pick returns a slice of n random words from words.
