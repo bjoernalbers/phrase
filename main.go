@@ -20,9 +20,9 @@ func init() {
 }
 
 func main() {
-	list := flag.String("l", "", "List of words from which the passphrases are generated. The list must be a path to a diceware wordlist.")
+	filename := flag.String("f", "", "Diceware wordlist file.")
 	flag.Parse()
-	words, err := readList(*list)
+	words, err := readList(*filename)
 	if err != nil {
 		log.Fatal(err)
 	}
