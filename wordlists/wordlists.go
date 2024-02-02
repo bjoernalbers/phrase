@@ -15,11 +15,7 @@ const ValidWordRegexp = `\A[a-z]{3,9}\z`
 // wordlists contains all wordlists grouped by language.
 // Each new language file add a wordlist to this map with the corresponding
 // two-letter language code as key.
-var wordlists map[string][]string
-
-func init() {
-	wordlists = make(map[string][]string)
-}
+var wordlists = map[string][]string{}
 
 // ReadFile reads and returns wordlist from filename.
 func ReadFile(filename string) (wordlist []string, err error) {
