@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/bjoernalbers/phrase/wordlists"
@@ -13,7 +15,7 @@ import (
 
 func init() {
 	log.SetFlags(0)
-	log.SetPrefix("phrase: ")
+	log.SetPrefix(fmt.Sprintf("%s: ", filepath.Base(os.Args[0])))
 }
 
 func main() {
