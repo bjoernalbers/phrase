@@ -20,6 +20,7 @@ func init() {
 
 func main() {
 	filename := flag.String("f", "", "Diceware wordlist file.")
+	language := flag.String("l", "de", "Language of wordlist.")
 	flag.Parse()
 	var wordlist []string
 	var err error
@@ -29,8 +30,10 @@ func main() {
 			log.Fatal(err)
 		}
 	} else {
-		// TODO: Replace fake data with real wordlist.
-		wordlist = []string{"correct", "horse", "battery", "staple"}
+		wordlist, err = wordlists.Get(*language)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 	passphrase, err := pick(wordlist, 4)
 	if err != nil {
