@@ -2,13 +2,10 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"math/rand"
-	"os"
 	"strings"
 
 	"github.com/bjoernalbers/phrase/wordlists"
@@ -22,40 +19,22 @@ func init() {
 func main() {
 	filename := flag.String("f", "", "Diceware wordlist file.")
 	flag.Parse()
-	words, err := readList(*filename)
-	if err != nil {
-		log.Fatal(err)
+	var wordlist []string
+	var err error
+	if *filename != "" {
+		wordlist, err = wordlists.ReadFile(*filename)
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		// TODO: Replace fake data with real wordlist.
+		wordlist = []string{"correct", "horse", "battery", "staple"}
 	}
-	randomWords, err := pick(words, 4)
+	randomWords, err := pick(wordlist, 4)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(strings.Join(randomWords, " "))
-}
-
-// readList reads and returns words from list.
-func readList(list string) ([]string, error) {
-	words, ok := wordlists.Lists[list]
-	if ok {
-		return words, nil
-	}
-	f, err := os.Open(list)
-	if err != nil {
-		return []string{}, err
-	}
-	defer f.Close()
-	words, err = read(f)
-	return words, nil
-}
-
-// read reads and returns words of r
-func read(r io.Reader) (words []string, err error) {
-	scanner := bufio.NewScanner(r)
-	for scanner.Scan() {
-		_, word, _ := strings.Cut(scanner.Text(), "\t")
-		words = append(words, word)
-	}
-	return words, err
 }
 
 // pick returns a slice of n random words from words.

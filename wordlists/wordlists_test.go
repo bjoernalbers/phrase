@@ -1,6 +1,75 @@
 package wordlists
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
+
+func equal(s1, s2 []string) bool {
+	if len(s1) != len(s2) {
+		return false
+	}
+	for i := range s1 {
+		if s1[i] != s2[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func TestReadFile(t *testing.T) {
+	tests := []struct {
+		in      string
+		want    []string
+		wantErr bool
+	}{
+		{
+			"does-not-exist",
+			[]string{},
+			true,
+		},
+		{
+			"../testdata/gopher.txt",
+			[]string{"gopher"},
+			false,
+		},
+	}
+	for _, test := range tests {
+		got, err := ReadFile(test.in)
+		if (err != nil) != test.wantErr {
+			t.Errorf("ReadFile(%v) error = %v, wantErr: %v", test.in, err, test.wantErr)
+		}
+		if !equal(got, test.want) {
+			t.Errorf("ReadFile(%v) = %v, want: %v", test.in, got, test.want)
+		}
+	}
+}
+
+func TestRead(t *testing.T) {
+	tests := []struct {
+		in      string
+		want    []string
+		wantErr bool
+	}{
+		{
+			"",
+			[]string{},
+			false,
+		},
+		{
+			"11111\tgopher\n",
+			[]string{"gopher"},
+			false,
+		},
+	}
+	for _, test := range tests {
+		r := strings.NewReader(test.in)
+		got, _ := read(r)
+		if !equal(got, test.want) {
+			t.Errorf("read() = %v, want: %v\n", got, test.want)
+		}
+	}
+}
 
 func TestValidateWord(t *testing.T) {
 	tests := []struct {
