@@ -12,11 +12,13 @@ import (
 
 const ValidWordRegexp = `\A[a-z]{3,9}\z`
 
-// Lists contains all wordlists grouped by two-letter language code.
-var Lists map[string][]string
+// wordlists contains all wordlists grouped by language.
+// Each new language file add a wordlist to this map with the corresponding
+// two-letter language code as key.
+var wordlists map[string][]string
 
 func init() {
-	Lists = make(map[string][]string)
+	wordlists = make(map[string][]string)
 }
 
 // ReadFile reads and returns wordlist from filename.
