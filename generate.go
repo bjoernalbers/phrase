@@ -28,16 +28,24 @@ func main() {
 		log.Fatal("Please provide a diceware wordlist file!")
 	}
 	inputPath := os.Args[1]
-	directory, filename := filepath.Split(inputPath)
-	language := strings.TrimSuffix(filename, filepath.Ext(filename))
-	outputPath := filepath.Join(directory, language+".go")
-	wordlist, err := wordlists.ReadFile(inputPath)
+	err := generate(inputPath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	file, err := os.Create(outputPath)
+}
+
+// generate generates a Go wordlist from a diceware wordlist.
+func generate(input string) error {
+	dirname, filename := filepath.Split(input)
+	language := strings.TrimSuffix(filename, filepath.Ext(filename))
+	output := filepath.Join(dirname, language+".go")
+	wordlist, err := wordlists.ReadFile(input)
 	if err != nil {
-		log.Fatal(err)
+		return err
+	}
+	file, err := os.Create(output)
+	if err != nil {
+		return err
 	}
 	defer file.Close()
 	type Wordlist struct {
@@ -53,10 +61,11 @@ func init() {
 }
 `)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	err = templ.Execute(file, Wordlist{language, wordlist})
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }
