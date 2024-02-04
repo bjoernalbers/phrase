@@ -22,4 +22,4 @@ check: $(EXE)
 
 .PHONY: generate
 generate:
-	@for file in wordlists/*.txt; do go run generate.go "$${file}"; done
+	@go run generate.go
