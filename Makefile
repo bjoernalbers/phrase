@@ -19,7 +19,3 @@ check: $(EXE)
 	@$(EXE) -f testdata/gopher.txt | grep -Eq "^gopher gopher gopher gopher$$"
 	# - not return fake passphrases
 	@if $(EXE) | grep -Eq 'correct|horse|battery|staple'; then false; fi
-
-.PHONY: generate
-generate:
-	@go run generate.go

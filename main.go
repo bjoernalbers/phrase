@@ -1,4 +1,7 @@
 // phrase - the passphrase generator
+
+//go:generate go run generate.go
+
 package main
 
 import (
