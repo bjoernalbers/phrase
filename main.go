@@ -24,6 +24,7 @@ func init() {
 func main() {
 	filename := flag.String("f", "", "Diceware wordlist file.")
 	language := flag.String("l", "de", "Language of wordlist.")
+	words := flag.Int("w", 4, "Number of words per passphrase.")
 	flag.Parse()
 	var wordlist []string
 	var err error
@@ -38,7 +39,7 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	passphrase, err := pick(wordlist, 4)
+	passphrase, err := pick(wordlist, *words)
 	if err != nil {
 		log.Fatal(err)
 	}
