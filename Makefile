@@ -1,13 +1,14 @@
-EXE := ./phrase
-SRC := $(shell find . -name '*.go' -or -name 'go.mod')
+# Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-$(EXE): $(SRC)
+build: ## Build binary
 	@go build
 
-.PHONY: unit
-unit:
+test: unit integration ## Perform all unit and integration tests
+
+unit: ## Perform unit tests
 	@go test ./...
 
-.PHONY: integration
-integration: $(EXE)
+integration: build ## Perform integration tests
 	@go test integration_test.go
