@@ -21,3 +21,7 @@ check: $(EXE)
 	@if $(EXE) | grep -Eq 'correct|horse|battery|staple'; then false; fi
 	# - allow to change the number of words
 	@$(EXE) -w 3 -f testdata/gopher.txt | grep -Eq "^gopher gopher gopher$$"
+
+.PHONY: unit
+unit:
+	@go test ./...
