@@ -25,6 +25,7 @@ func main() {
 	filename := flag.String("f", "", "Diceware wordlist file.")
 	language := flag.String("l", "de", "Language of wordlist.")
 	words := flag.Int("w", 4, "Number of words per passphrase.")
+	separator := flag.String("s", " ", "Separator between words.")
 	flag.Parse()
 	var wordlist []string
 	var err error
@@ -43,7 +44,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(strings.Join(passphrase, " "))
+	fmt.Println(strings.Join(passphrase, *separator))
 }
 
 // pick returns a slice of n random words from words.
