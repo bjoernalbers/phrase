@@ -90,6 +90,7 @@ func TestIntegration(t *testing.T) {
 		{"change number of words", []string{"-w", "3", "-f", "testdata/gopher.txt"}, `^gopher gopher gopher\n$`, false},
 		{"change separator", []string{"-s", "-", "-f", "testdata/gopher.txt"}, `^gopher-gopher-gopher-gopher\n$`, false},
 		{"add digits", []string{"-d", "3"}, ` [0-9]{3}\n$`, false},
+		{"capitalize words", []string{"-C", "-f", "testdata/gopher.txt"}, `^Gopher Gopher Gopher Gopher\n$`, false},
 		{"missing wordlist", []string{"-f", "this-file-does-not-exist"}, `this-file-does-not-exist`, true},
 	}
 	for _, tt := range tests {

@@ -28,6 +28,7 @@ func main() {
 	words := flag.Int("w", 4, "Number of words per passphrase.")
 	separator := flag.String("s", " ", "Separator between words.")
 	digits := flag.Int("d", 0, "Digits per passphrase.")
+	capitalize := flag.Bool("C", false, "Capitalize all words")
 	flag.Parse()
 	var wordlist []string
 	var err error
@@ -45,6 +46,11 @@ func main() {
 	passphrase, err := pick(wordlist, *words)
 	if err != nil {
 		log.Fatal(err)
+	}
+	if *capitalize {
+		for i := range passphrase {
+			passphrase[i] = strings.Title(passphrase[i])
+		}
 	}
 	if *digits > 0 {
 		passphrase = append(passphrase, fmt.Sprintf("%d", rand.Intn(int(math.Pow10(*digits)))))
