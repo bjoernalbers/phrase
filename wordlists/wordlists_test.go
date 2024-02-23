@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+const WordlistSize = 7776
+
 func equal(s1, s2 []string) bool {
 	if len(s1) != len(s2) {
 		return false
@@ -47,6 +49,9 @@ func TestGet(t *testing.T) {
 
 func TestWordlists(t *testing.T) {
 	for language, wordlist := range wordlists {
+		if len(wordlist) != WordlistSize {
+			t.Fatalf("wordlist[%q] contains %d words, expected %d\n", language, len(wordlist), WordlistSize)
+		}
 		for _, word := range wordlist {
 			if err := ValidateWord(word); err != nil {
 				t.Errorf("wordlist[%q] contains invalid word %q\n", language, word)
