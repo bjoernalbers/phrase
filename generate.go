@@ -21,6 +21,7 @@ const (
 	dir          = "wordlists"
 	inputSuffix  = ".txt"
 	outputSuffix = ".go"
+	templateFile = "wordlists/wordlist.go.tmpl"
 )
 
 func init() {
@@ -73,14 +74,7 @@ func generate(input string) error {
 		Language string
 		Wordlist []string
 	}
-	templ, err := template.New("wordlist").Parse(`package wordlists
-
-func init() {
-	wordlists["{{.Language}}"] = []string{
-{{range .Wordlist}}		"{{.}}",
-{{end}}	}
-}
-`)
+	templ, err := template.New(filepath.Base(templateFile)).ParseFiles(templateFile)
 	if err != nil {
 		return err
 	}
