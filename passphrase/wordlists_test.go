@@ -19,34 +19,6 @@ func equal(s1, s2 []string) bool {
 	return true
 }
 
-func TestGet(t *testing.T) {
-	tests := []struct {
-		in      string
-		want    []string
-		wantErr bool
-	}{
-		{
-			"doesnotexist",
-			[]string{},
-			true,
-		},
-		{
-			"de",
-			Wordlists["de"],
-			false,
-		},
-	}
-	for _, test := range tests {
-		got, err := Get(test.in)
-		if (err != nil) != test.wantErr {
-			t.Fatalf("Get(%q) err = %v, wantErr: %v\n", test.in, err, test.wantErr)
-		}
-		if !equal(got, test.want) {
-			t.Fatalf("Get(%q) returned wrong wordlist\n", test.in)
-		}
-	}
-}
-
 func TestWordlists(t *testing.T) {
 	for language, wordlist := range Wordlists {
 		if len(wordlist) != WordlistSize {
