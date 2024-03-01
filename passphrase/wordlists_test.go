@@ -1,4 +1,4 @@
-package wordlists
+package passphrase
 
 import (
 	"strings"

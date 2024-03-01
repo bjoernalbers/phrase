@@ -12,7 +12,6 @@ import (
 	"path/filepath"
 
 	"github.com/bjoernalbers/phrase/passphrase"
-	"github.com/bjoernalbers/phrase/wordlists"
 )
 
 func init() {
@@ -31,12 +30,12 @@ func main() {
 	flag.Parse()
 	var err error
 	if *filename != "" {
-		g.Wordlist, err = wordlists.ReadFile(*filename)
+		g.Wordlist, err = passphrase.ReadFile(*filename)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else {
-		g.Wordlist, err = wordlists.Get(*language)
+		g.Wordlist, err = passphrase.Get(*language)
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -14,14 +14,14 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/bjoernalbers/phrase/wordlists"
+	"github.com/bjoernalbers/phrase/passphrase"
 )
 
 const (
-	dir          = "wordlists"
+	dir          = "passphrase"
 	inputSuffix  = ".txt"
 	outputSuffix = ".go"
-	templateFile = "wordlists/wordlist.go.tmpl"
+	templateFile = "passphrase/wordlist.go.tmpl"
 )
 
 func init() {
@@ -61,7 +61,7 @@ func generate(input string) error {
 	dirname, filename := filepath.Split(input)
 	language := strings.TrimSuffix(filename, filepath.Ext(filename))
 	output := filepath.Join(dirname, language+outputSuffix)
-	wordlist, err := wordlists.ReadFile(input)
+	wordlist, err := passphrase.ReadFile(input)
 	if err != nil {
 		return err
 	}

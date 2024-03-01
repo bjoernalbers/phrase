@@ -14,7 +14,7 @@ integration: build ## Perform integration tests
 	@go test integration_test.go
 
 generate: ## Generate go wordlists from diceware wordlists
-	@for f in wordlists/*.txt; do rm -f "$${f%.txt}.go"; done
+	@for f in passphrase/*.txt; do rm -f "$${f%.txt}.go"; done
 	@go generate
 
 install: ## Install binary
