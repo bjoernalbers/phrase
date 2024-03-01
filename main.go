@@ -35,9 +35,10 @@ func main() {
 			log.Fatal(err)
 		}
 	} else {
-		g.Wordlist, err = passphrase.Get(*language)
-		if err != nil {
-			log.Fatal(err)
+		var ok bool
+		g.Wordlist, ok = passphrase.Wordlists[*language]
+		if !ok {
+			log.Fatalf("no such language: %q", *language)
 		}
 	}
 	passphrase, err := g.Phrase()

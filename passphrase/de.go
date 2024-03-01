@@ -1,7 +1,7 @@
 package passphrase
 
 func init() {
-	wordlists["de"] = []string{
+	Wordlists["de"] = []string{
 		"abbeizen",
 		"abbiegen",
 		"abbild",

@@ -11,15 +11,15 @@ import (
 
 const ValidWordRegexp = `\A[a-z]{3,9}\z`
 
-// wordlists contains all wordlists grouped by language.
+// Wordlists contains all wordlists grouped by language.
 // Each new language file add a wordlist to this map with the corresponding
 // two-letter language code as key.
-var wordlists = map[string][]string{}
+var Wordlists = map[string][]string{}
 
 // Get returns wordlist by language.
 // If no wordlist exists for that language, an error is returned.
 func Get(language string) (wordlist []string, err error) {
-	wordlist, ok := wordlists[language]
+	wordlist, ok := Wordlists[language]
 	if !ok {
 		return []string{}, fmt.Errorf("No such wordlist: %q", language)
 	}

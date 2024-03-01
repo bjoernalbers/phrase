@@ -32,7 +32,7 @@ func TestGet(t *testing.T) {
 		},
 		{
 			"de",
-			wordlists["de"],
+			Wordlists["de"],
 			false,
 		},
 	}
@@ -48,7 +48,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestWordlists(t *testing.T) {
-	for language, wordlist := range wordlists {
+	for language, wordlist := range Wordlists {
 		if len(wordlist) != WordlistSize {
 			t.Fatalf("wordlist[%q] contains %d words, expected %d\n", language, len(wordlist), WordlistSize)
 		}
