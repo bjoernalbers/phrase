@@ -8,11 +8,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"math"
-	"math/rand"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/bjoernalbers/phrase/wordlists"
 )
@@ -23,48 +20,29 @@ func init() {
 }
 
 func main() {
+	g := Generator{}
+	flag.IntVar(&g.Words, "w", 4, "Number of words per passphrase.")
+	flag.StringVar(&g.Separator, "s", " ", "Separator between words.")
+	flag.BoolVar(&g.Capitalize, "C", false, "Capitalize all words")
+	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase.")
 	filename := flag.String("f", "", "Diceware wordlist file.")
 	language := flag.String("l", "de", "Language of wordlist.")
-	words := flag.Int("w", 4, "Number of words per passphrase.")
-	separator := flag.String("s", " ", "Separator between words.")
-	digits := flag.Int("d", 0, "Digits per passphrase.")
-	capitalize := flag.Bool("C", false, "Capitalize all words")
 	flag.Parse()
-	var wordlist []string
 	var err error
 	if *filename != "" {
-		wordlist, err = wordlists.ReadFile(*filename)
+		g.Wordlist, err = wordlists.ReadFile(*filename)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else {
-		wordlist, err = wordlists.Get(*language)
+		g.Wordlist, err = wordlists.Get(*language)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
-	passphrase, err := pick(wordlist, *words)
+	passphrase, err := g.Phrase()
 	if err != nil {
 		log.Fatal(err)
 	}
-	if *capitalize {
-		for i := range passphrase {
-			passphrase[i] = strings.Title(passphrase[i])
-		}
-	}
-	if *digits > 0 {
-		passphrase = append(passphrase, fmt.Sprintf("%d", rand.Intn(int(math.Pow10(*digits)))))
-	}
-	fmt.Println(strings.Join(passphrase, *separator))
-}
-
-// pick returns a slice of n random words from words.
-func pick(words []string, n int) (randomWords []string, err error) {
-	if n <= 0 {
-		return nil, fmt.Errorf("Number of words to pick must be greater than 0")
-	}
-	for i := 0; i < n; i++ {
-		randomWords = append(randomWords, words[rand.Intn(len(words))])
-	}
-	return randomWords, nil
+	fmt.Println(passphrase)
 }
