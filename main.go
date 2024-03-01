@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/bjoernalbers/phrase/passphrase"
 	"github.com/bjoernalbers/phrase/wordlists"
 )
 
@@ -20,7 +21,7 @@ func init() {
 }
 
 func main() {
-	g := Generator{}
+	g := passphrase.Generator{}
 	flag.IntVar(&g.Words, "w", 4, "Number of words per passphrase.")
 	flag.StringVar(&g.Separator, "s", " ", "Separator between words.")
 	flag.BoolVar(&g.Capitalize, "C", false, "Capitalize all words")

@@ -1,4 +1,4 @@
-package main
+package passphrase
 
 import (
 	"crypto/rand"
