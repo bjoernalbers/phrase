@@ -7,40 +7,29 @@ import (
 
 func TestGenerator(t *testing.T) {
 	tests := []struct {
-		name   string
-		in     Generator
-		want   string
-		regexp bool
+		name string
+		in   Generator
+		want string
 	}{
 		{
 			"default generator",
 			Generator{},
 			"",
-			false,
 		},
 		{
 			"change number of words",
 			Generator{Wordlist: []string{"gopher"}, Words: 1},
 			"gopher",
-			false,
 		},
 		{
 			"change separator",
 			Generator{Wordlist: []string{"gopher"}, Words: 2, Separator: " "},
 			"gopher gopher",
-			false,
 		},
 		{
 			"capitalize words",
 			Generator{Wordlist: []string{"gopher"}, Words: 1, Capitalize: true},
 			"Gopher",
-			false,
-		},
-		{
-			"change number of digits",
-			Generator{Digits: 10},
-			`^[0-9]{10}$`,
-			true,
 		},
 	}
 	for _, tt := range tests {
@@ -49,13 +38,36 @@ func TestGenerator(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Generator.Phrase() error = %v", err)
 			}
-			if tt.regexp {
-				if !regexp.MustCompile(tt.want).MatchString(got) {
-					t.Errorf("Generator.Phrase() = %q, does not match: %q", got, tt.want)
+			if got != tt.want {
+				t.Errorf("Generator.Phrase() = %q, want: %q", got, tt.want)
+			}
+		})
+	}
+	tests = []struct {
+		name string
+		in   Generator
+		want string
+	}{
+		{
+			"one digit",
+			Generator{Digits: 1},
+			`^[0-9]$`,
+		},
+		{
+			"multiple digits",
+			Generator{Digits: 10},
+			`^[1-9][0-9]{9}$`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			for i := 0; i < 100; i++ {
+				got, err := tt.in.Phrase()
+				if err != nil {
+					t.Fatalf("Generator.Phrase() error = %v", err)
 				}
-			} else {
-				if got != tt.want {
-					t.Errorf("Generator.Phrase() = %q, want: %q", got, tt.want)
+				if !regexp.MustCompile(tt.want).MatchString(got) {
+					t.Fatalf("Generator.Phrase() = %q, does not match: %q", got, tt.want)
 				}
 			}
 		})

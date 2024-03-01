@@ -3,7 +3,6 @@ package passphrase
 import (
 	"crypto/rand"
 	"fmt"
-	"math"
 	"math/big"
 	"strconv"
 	"strings"
@@ -34,15 +33,20 @@ func (g *Generator) Phrase() (string, error) {
 		}
 	}
 	if g.Digits > 0 {
-		var n int
+		var number string
 		for i := 0; i < g.Digits; i++ {
 			r, err := randInt(10)
 			if err != nil {
 				return "", err
 			}
-			n = n + int(math.Pow10(i))*r
+			// Numbers with multiple digits should not begin with
+			// zeroes.
+			if g.Digits > 1 && i == 0 && r == 0 {
+				r = 1
+			}
+			number += strconv.Itoa(r)
 		}
-		passphrase = append(passphrase, strconv.Itoa(n))
+		passphrase = append(passphrase, number)
 	}
 	return strings.Join(passphrase, g.Separator), nil
 }
