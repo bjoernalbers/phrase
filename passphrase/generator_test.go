@@ -17,6 +17,11 @@ func TestGenerator(t *testing.T) {
 			"",
 		},
 		{
+			"empty wordlist",
+			Generator{Wordlist: []string{}, Words: 1},
+			"",
+		},
+		{
 			"change number of words",
 			Generator{Wordlist: []string{"gopher"}, Words: 1},
 			"gopher",

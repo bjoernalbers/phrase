@@ -62,8 +62,12 @@ func randomInt(max int) (int, error) {
 
 // randomWords returns n random words from wordlist.
 func randomWords(wordlist []string, n int) (words []string, err error) {
+	length := len(wordlist)
+	if length == 0 {
+		return words, nil
+	}
 	for i := 0; i < n; i++ {
-		r, err := randomInt(len(wordlist))
+		r, err := randomInt(length)
 		if err != nil {
 			return words, err
 		}
