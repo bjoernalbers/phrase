@@ -19,13 +19,9 @@ type Generator struct {
 
 // Phrase returns a random passphrase or an error, if the randomization fails.
 func (g *Generator) Phrase() (string, error) {
-	var passphrase []string
-	for i := 0; i < g.Words; i++ {
-		r, err := randInt(len(g.Wordlist))
-		if err != nil {
-			return "", err
-		}
-		passphrase = append(passphrase, g.Wordlist[r])
+	passphrase, err := randomWords(g.Wordlist, g.Words)
+	if err != nil {
+		return "", err
 	}
 	if g.Capitalize {
 		for i := range passphrase {
@@ -59,4 +55,16 @@ func randInt(max int) (int, error) {
 		return 0, fmt.Errorf("random number generator: %v", err)
 	}
 	return int(random.Int64()), nil
+}
+
+// randomWords returns n random words from wordlist.
+func randomWords(wordlist []string, n int) (words []string, err error) {
+	for i := 0; i < n; i++ {
+		r, err := randInt(len(wordlist))
+		if err != nil {
+			return words, err
+		}
+		words = append(words, wordlist[r])
+	}
+	return words, nil
 }
