@@ -8,14 +8,32 @@ import (
 	"strings"
 )
 
-// Generator generates random passphrases.
+// Generator generates random passphrases by the given settings.
 type Generator struct {
-	Wordlist   []string
-	Words      int
-	Separator  string
+	// Wordlist must be a list of words from which the passphrases are
+	// generated. It can be set directly, i.e. to the output of ReadFile().
+	// Or it can be set indirectly via the Language field (see below).
+	Wordlist []string
+
+	// Language allows to set Wordlist to a build-in wordlist, which must
+	// be present in Wordlists.
+	// The Language setting gets ignored when Wordlist has already been set
+	// to a non-empty value.
+	Language string
+
+	// Words determines the number of words per passphrase.
+	Words int
+
+	// Separator is the string between the words that joins all words
+	// together. It is usually a single character or an empty string.
+	Separator string
+
+	// Capitalize converts the first letter of each word to an uppercase
+	// letter when set to true.
 	Capitalize bool
-	Digits     int
-	Language   string
+
+	// Digits determines the number of digits per passphrase.
+	Digits int
 }
 
 // Phrase returns a random passphrase.
