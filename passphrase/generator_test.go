@@ -73,3 +73,19 @@ func TestGenerator(t *testing.T) {
 		})
 	}
 }
+
+func TestRandomInt(t *testing.T) {
+	tests := []struct {
+		in      int
+		wantErr bool
+	}{
+		{-1, true},
+		{0, true},
+		{1, false},
+	}
+	for _, tt := range tests {
+		if _, err := randomInt(tt.in); (err != nil) != tt.wantErr {
+			t.Errorf("randomInt(%d) error = %v, wantErr: %v", tt.in, err, tt.wantErr)
+		}
+	}
+}

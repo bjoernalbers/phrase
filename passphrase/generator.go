@@ -47,12 +47,15 @@ func (g *Generator) Phrase() (string, error) {
 	return strings.Join(passphrase, g.Separator), nil
 }
 
-// randomInt returns a random integer in the range [0, max).
-// Errors from the underlying crypto function get passed through.
+// randomInt returns a random integer in the range [0, max), where max must be
+// greater than zero.
 func randomInt(max int) (int, error) {
+	if max <= 0 {
+		return 0, fmt.Errorf("randomInt: max must be greater than zero")
+	}
 	r, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
 	if err != nil {
-		return 0, fmt.Errorf("random number generator: %v", err)
+		return 0, fmt.Errorf("randomInt: %v", err)
 	}
 	return int(r.Int64()), nil
 }
