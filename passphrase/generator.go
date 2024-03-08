@@ -18,7 +18,7 @@ type Generator struct {
 	Language   string
 }
 
-// Phrase returns a random passphrase or an error, if the randomization fails.
+// Phrase returns a random passphrase.
 func (g *Generator) Phrase() (string, error) {
 	if g.Language != "" && len(g.Wordlist) == 0 {
 		wordlist, ok := Wordlists[g.Language]
