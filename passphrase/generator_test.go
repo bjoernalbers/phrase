@@ -87,3 +87,28 @@ func TestRandomInt(t *testing.T) {
 		}
 	}
 }
+
+func TestRandomNumber(t *testing.T) {
+	tests := []struct {
+		in    int
+		lower int
+		upper int
+	}{
+		{1, 0, 9},
+		{2, 10, 99},
+		{3, 100, 999},
+		{4, 1000, 9999},
+		{5, 10000, 99999},
+	}
+	for _, tt := range tests {
+		for i := 0; i < 1000; i++ {
+			got, err := randomNumber(tt.in)
+			if err != nil {
+				t.Fatalf("randomNumber(%d) error = %v", tt.in, err)
+			}
+			if got < tt.lower || got > tt.upper {
+				t.Fatalf("randomNumber(%d) = %d, not in [%d, %d]", tt.in, got, tt.lower, tt.upper)
+			}
+		}
+	}
+}
