@@ -27,6 +27,7 @@ func main() {
 	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase.")
 	flag.StringVar(&g.Language, "l", "de", "Language of wordlist.")
 	filename := flag.String("f", "", "Diceware wordlist file.")
+	passphrases := flag.Int("p", 1, "Number of passphrases")
 	flag.Parse()
 	var err error
 	if *filename != "" {
@@ -35,9 +36,11 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	passphrase, err := g.Phrase()
-	if err != nil {
-		log.Fatal(err)
+	for i := 0; i < *passphrases; i++ {
+		passphrase, err := g.Phrase()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(passphrase)
 	}
-	fmt.Println(passphrase)
 }
