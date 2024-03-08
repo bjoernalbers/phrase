@@ -1,3 +1,4 @@
+// Package passphrase generates... *drumroll*... passphrases.
 package passphrase
 
 import (
