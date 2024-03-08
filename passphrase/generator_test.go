@@ -46,6 +46,16 @@ func TestGenerator(t *testing.T) {
 			Generator{Digits: 10},
 			`^[1-9][0-9]{9}$`,
 		},
+		{
+			"select language",
+			Generator{Language: "de", Words: 1},
+			`^[a-z]{3,9}$`,
+		},
+		{
+			"Wordlist and Language",
+			Generator{Wordlist: []string{"gopher"}, Language: "de", Words: 1},
+			`^gopher$`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

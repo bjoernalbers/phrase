@@ -25,20 +25,14 @@ func main() {
 	flag.StringVar(&g.Separator, "s", " ", "Separator between words.")
 	flag.BoolVar(&g.Capitalize, "C", false, "Capitalize all words")
 	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase.")
+	flag.StringVar(&g.Language, "l", "de", "Language of wordlist.")
 	filename := flag.String("f", "", "Diceware wordlist file.")
-	language := flag.String("l", "de", "Language of wordlist.")
 	flag.Parse()
 	var err error
 	if *filename != "" {
 		g.Wordlist, err = passphrase.ReadFile(*filename)
 		if err != nil {
 			log.Fatal(err)
-		}
-	} else {
-		var ok bool
-		g.Wordlist, ok = passphrase.Wordlists[*language]
-		if !ok {
-			log.Fatalf("no such language: %q", *language)
 		}
 	}
 	passphrase, err := g.Phrase()
