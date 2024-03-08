@@ -31,7 +31,7 @@ func (g *Generator) Phrase() (string, error) {
 	if g.Digits > 0 {
 		var number string
 		for i := 0; i < g.Digits; i++ {
-			r, err := randInt(10)
+			r, err := randomInt(10)
 			if err != nil {
 				return "", err
 			}
@@ -47,20 +47,20 @@ func (g *Generator) Phrase() (string, error) {
 	return strings.Join(passphrase, g.Separator), nil
 }
 
-// randInt returns a random integer in the range [0, max).
+// randomInt returns a random integer in the range [0, max).
 // Errors from the underlying crypto function get passed through.
-func randInt(max int) (int, error) {
-	random, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
+func randomInt(max int) (int, error) {
+	r, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
 	if err != nil {
 		return 0, fmt.Errorf("random number generator: %v", err)
 	}
-	return int(random.Int64()), nil
+	return int(r.Int64()), nil
 }
 
 // randomWords returns n random words from wordlist.
 func randomWords(wordlist []string, n int) (words []string, err error) {
 	for i := 0; i < n; i++ {
-		r, err := randInt(len(wordlist))
+		r, err := randomInt(len(wordlist))
 		if err != nil {
 			return words, err
 		}
