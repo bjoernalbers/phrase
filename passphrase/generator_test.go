@@ -14,45 +14,28 @@ func TestGenerator(t *testing.T) {
 		{
 			"default generator",
 			Generator{},
-			"",
+			`^$`,
 		},
 		{
 			"empty wordlist",
 			Generator{Wordlist: []string{}, Words: 1},
-			"",
+			`^$`,
 		},
 		{
 			"change number of words",
 			Generator{Wordlist: []string{"gopher"}, Words: 1},
-			"gopher",
+			`^gopher$`,
 		},
 		{
 			"change separator",
 			Generator{Wordlist: []string{"gopher"}, Words: 2, Separator: " "},
-			"gopher gopher",
+			`^gopher gopher$`,
 		},
 		{
 			"capitalize words",
 			Generator{Wordlist: []string{"gopher"}, Words: 1, Capitalize: true},
-			"Gopher",
+			`^Gopher`,
 		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := tt.in.Phrase()
-			if err != nil {
-				t.Fatalf("Generator.Phrase() error = %v", err)
-			}
-			if got != tt.want {
-				t.Errorf("Generator.Phrase() = %q, want: %q", got, tt.want)
-			}
-		})
-	}
-	tests = []struct {
-		name string
-		in   Generator
-		want string
-	}{
 		{
 			"one digit",
 			Generator{Digits: 1},
@@ -66,7 +49,7 @@ func TestGenerator(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			for i := 0; i < 100; i++ {
+			for i := 0; i < 1000; i++ {
 				got, err := tt.in.Phrase()
 				if err != nil {
 					t.Fatalf("Generator.Phrase() error = %v", err)
