@@ -1,13 +1,10 @@
 package passphrase
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 	"testing"
 )
-
-var validWord = regexp.MustCompile(`\A[a-z]{3,9}\z`)
 
 func equal(s1, s2 []string) bool {
 	if len(s1) != len(s2) {
@@ -22,14 +19,15 @@ func equal(s1, s2 []string) bool {
 }
 
 func TestWordlists(t *testing.T) {
-	var wordlistSize = 7776
+	const wordlistSize = 7776
+	var validWord = regexp.MustCompile(`\A[a-z]{3,9}\z`)
 	for language, wordlist := range Wordlists {
 		t.Run(language, func(t *testing.T) {
 			if got := len(wordlist); got != wordlistSize {
 				t.Fatalf("wordlist size = %d, want: %d\n", got, wordlistSize)
 			}
 			for _, word := range wordlist {
-				if err := ValidateWord(word); err != nil {
+				if !validWord.MatchString(word) {
 					t.Errorf("invalid word: %q\n", word)
 				}
 			}
@@ -103,42 +101,6 @@ func TestRead(t *testing.T) {
 			got, _ := read(r)
 			if !equal(got, tt.want) {
 				t.Errorf("read() = %#v, want: %#v\n", got, tt.want)
-			}
-		})
-	}
-}
-
-func ValidateWord(word string) error {
-	if !validWord.MatchString(word) {
-		return fmt.Errorf("invalid word: %#v", word)
-	}
-	return nil
-}
-
-func TestValidateWord(t *testing.T) {
-	tests := []struct {
-		name    string
-		word    string
-		wantErr bool
-	}{
-		{"two letters", "go", true},
-		{"ten letters", "gophergoph", true},
-		{"contains space", "go pher", true},
-		{"contains umlaut", "göpher", true},
-		{"contains hyphen", "go-pher", true},
-		{"contains dot", "go.pher", true},
-		{"contains digit", "goph3r", true},
-		{"all letters uppercase", "GOPHER", true},
-		{"first letter capitalized", "Gopher", true},
-		{"last letter capitalized", "gopheR", true},
-		{"all letters lowercase", "gopher", false},
-		{"three letters", "gop", false},
-		{"nine letters", "gophergop", false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := ValidateWord(tt.word); (err != nil) != tt.wantErr {
-				t.Fatalf("validateWord(%#v) = %v, wantErr: %#v\n", tt.word, err, tt.wantErr)
 			}
 		})
 	}
