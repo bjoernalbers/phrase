@@ -6,18 +6,6 @@ import (
 	"testing"
 )
 
-func equal(s1, s2 []string) bool {
-	if len(s1) != len(s2) {
-		return false
-	}
-	for i := range s1 {
-		if s1[i] != s2[i] {
-			return false
-		}
-	}
-	return true
-}
-
 func TestWordlists(t *testing.T) {
 	const wordlistSize = 7776
 	var validWord = regexp.MustCompile(`\A[a-z]{3,9}\z`)
@@ -104,4 +92,16 @@ func TestRead(t *testing.T) {
 			}
 		})
 	}
+}
+
+func equal(s1, s2 []string) bool {
+	if len(s1) != len(s2) {
+		return false
+	}
+	for i := range s1 {
+		if s1[i] != s2[i] {
+			return false
+		}
+	}
+	return true
 }
