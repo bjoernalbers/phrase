@@ -62,27 +62,44 @@ func TestReadFile(t *testing.T) {
 
 func TestRead(t *testing.T) {
 	tests := []struct {
+		name    string
 		in      string
 		want    []string
 		wantErr bool
 	}{
 		{
+			"handle empty input",
 			"",
 			[]string{},
 			false,
 		},
 		{
+			"read valid line",
 			"11111\tgopher\n",
 			[]string{"gopher"},
 			false,
 		},
+		{
+			"ignore comment",
+			"#11111\tgopher\n",
+			[]string{},
+			false,
+		},
+		{
+			"ignore empty line",
+			"\n",
+			[]string{},
+			false,
+		},
 	}
 	for _, test := range tests {
-		r := strings.NewReader(test.in)
-		got, _ := read(r)
-		if !equal(got, test.want) {
-			t.Errorf("read() = %v, want: %v\n", got, test.want)
-		}
+		t.Run(test.name, func(t *testing.T) {
+			r := strings.NewReader(test.in)
+			got, _ := read(r)
+			if !equal(got, test.want) {
+				t.Errorf("read() = %#v, want: %#v\n", got, test.want)
+			}
+		})
 	}
 }
 
