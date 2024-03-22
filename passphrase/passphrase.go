@@ -3,17 +3,13 @@ package passphrase
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"os"
 	"regexp"
 	"strings"
 )
 
-var (
-	validWord      = regexp.MustCompile(`\A[a-z]{3,9}\z`)
-	dicewarePrefix = regexp.MustCompile(`\A[1-6]{5}\t`)
-)
+var dicewarePrefix = regexp.MustCompile(`\A[1-6]{5}\t`)
 
 // Wordlists contains all wordlists grouped by language.
 // Each new language file add a wordlist to this map with the corresponding
@@ -46,11 +42,4 @@ func read(reader io.Reader) ([]string, error) {
 		return wordlist, scanner.Err()
 	}
 	return wordlist, nil
-}
-
-func ValidateWord(word string) error {
-	if !validWord.MatchString(word) {
-		return fmt.Errorf("invalid word: %#v", word)
-	}
-	return nil
 }

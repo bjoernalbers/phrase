@@ -1,11 +1,15 @@
 package passphrase
 
 import (
+	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 )
 
 const WordlistSize = 7776
+
+var validWord = regexp.MustCompile(`\A[a-z]{3,9}\z`)
 
 func equal(s1, s2 []string) bool {
 	if len(s1) != len(s2) {
@@ -101,6 +105,13 @@ func TestRead(t *testing.T) {
 			}
 		})
 	}
+}
+
+func ValidateWord(word string) error {
+	if !validWord.MatchString(word) {
+		return fmt.Errorf("invalid word: %#v", word)
+	}
+	return nil
 }
 
 func TestValidateWord(t *testing.T) {
