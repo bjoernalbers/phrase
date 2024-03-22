@@ -53,13 +53,13 @@ func TestReadFile(t *testing.T) {
 			false,
 		},
 	}
-	for _, test := range tests {
-		got, err := ReadFile(test.in)
-		if (err != nil) != test.wantErr {
-			t.Errorf("ReadFile(%v) error = %v, wantErr: %v", test.in, err, test.wantErr)
+	for _, tt := range tests {
+		got, err := ReadFile(tt.in)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("ReadFile(%v) error = %v, wantErr: %v", tt.in, err, tt.wantErr)
 		}
-		if !equal(got, test.want) {
-			t.Errorf("ReadFile(%v) = %v, want: %v", test.in, got, test.want)
+		if !equal(got, tt.want) {
+			t.Errorf("ReadFile(%v) = %v, want: %v", tt.in, got, tt.want)
 		}
 	}
 }
@@ -96,12 +96,12 @@ func TestRead(t *testing.T) {
 			false,
 		},
 	}
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			r := strings.NewReader(test.in)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := strings.NewReader(tt.in)
 			got, _ := read(r)
-			if !equal(got, test.want) {
-				t.Errorf("read() = %#v, want: %#v\n", got, test.want)
+			if !equal(got, tt.want) {
+				t.Errorf("read() = %#v, want: %#v\n", got, tt.want)
 			}
 		})
 	}
@@ -134,10 +134,10 @@ func TestValidateWord(t *testing.T) {
 		{"three letters", "gop", false},
 		{"nine letters", "gophergop", false},
 	}
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			if err := ValidateWord(test.word); (err != nil) != test.wantErr {
-				t.Fatalf("validateWord(%#v) = %v, wantErr: %#v\n", test.word, err, test.wantErr)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := ValidateWord(tt.word); (err != nil) != tt.wantErr {
+				t.Fatalf("validateWord(%#v) = %v, wantErr: %#v\n", tt.word, err, tt.wantErr)
 			}
 		})
 	}
