@@ -7,7 +7,6 @@ import (
 	"io"
 	"os"
 	"regexp"
-	"strings"
 )
 
 // Wordlists contains all wordlists grouped by language.
@@ -28,15 +27,15 @@ func ReadFile(filename string) (wordlist []string, err error) {
 
 // read reads and returns wordlist from reader.
 func read(reader io.Reader) ([]string, error) {
-	var dicewarePrefix = regexp.MustCompile(`\A[1-6]{5}\t`)
 	var wordlist []string
+	validLine := regexp.MustCompile(`\A[1-6]{5}\t(.+)\z`)
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
-		if !dicewarePrefix.MatchString(scanner.Text()) {
+		match := validLine.FindStringSubmatch(scanner.Text())
+		if len(match) == 0 {
 			continue
 		}
-		_, word, _ := strings.Cut(scanner.Text(), "\t")
-		wordlist = append(wordlist, word)
+		wordlist = append(wordlist, match[1])
 	}
 	if err := scanner.Err(); err != nil {
 		return wordlist, scanner.Err()
