@@ -10,8 +10,10 @@ import (
 	"strings"
 )
 
-const ValidWordRegexp = `\A[a-z]{3,9}\z`
-const DicewarePrefix = `\A[1-6]{5}\t`
+var (
+	validWord      = regexp.MustCompile(`\A[a-z]{3,9}\z`)
+	dicewarePrefix = regexp.MustCompile(`\A[1-6]{5}\t`)
+)
 
 // Wordlists contains all wordlists grouped by language.
 // Each new language file add a wordlist to this map with the corresponding
@@ -33,7 +35,7 @@ func ReadFile(filename string) (wordlist []string, err error) {
 func read(reader io.Reader) (wordlist []string, err error) {
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
-		if matched, _ := regexp.MatchString(DicewarePrefix, scanner.Text()); !matched {
+		if !dicewarePrefix.MatchString(scanner.Text()) {
 			continue
 		}
 		_, word, _ := strings.Cut(scanner.Text(), "\t")
@@ -43,7 +45,7 @@ func read(reader io.Reader) (wordlist []string, err error) {
 }
 
 func ValidateWord(word string) error {
-	if matched, _ := regexp.MatchString(ValidWordRegexp, word); !matched {
+	if !validWord.MatchString(word) {
 		return fmt.Errorf("invalid word: %#v", word)
 	}
 	return nil
