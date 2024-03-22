@@ -7,8 +7,6 @@ import (
 	"testing"
 )
 
-const WordlistSize = 7776
-
 var validWord = regexp.MustCompile(`\A[a-z]{3,9}\z`)
 
 func equal(s1, s2 []string) bool {
@@ -24,15 +22,18 @@ func equal(s1, s2 []string) bool {
 }
 
 func TestWordlists(t *testing.T) {
+	var wordlistSize = 7776
 	for language, wordlist := range Wordlists {
-		if len(wordlist) != WordlistSize {
-			t.Fatalf("wordlist[%q] contains %d words, expected %d\n", language, len(wordlist), WordlistSize)
-		}
-		for _, word := range wordlist {
-			if err := ValidateWord(word); err != nil {
-				t.Errorf("wordlist[%q] contains invalid word %q\n", language, word)
+		t.Run(language, func(t *testing.T) {
+			if got := len(wordlist); got != wordlistSize {
+				t.Fatalf("wordlist size = %d, want: %d\n", got, wordlistSize)
 			}
-		}
+			for _, word := range wordlist {
+				if err := ValidateWord(word); err != nil {
+					t.Errorf("invalid word: %q\n", word)
+				}
+			}
+		})
 	}
 }
 
