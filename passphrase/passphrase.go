@@ -32,7 +32,8 @@ func ReadFile(filename string) (wordlist []string, err error) {
 }
 
 // read reads and returns wordlist from reader.
-func read(reader io.Reader) (wordlist []string, err error) {
+func read(reader io.Reader) ([]string, error) {
+	var wordlist []string
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		if !dicewarePrefix.MatchString(scanner.Text()) {
@@ -41,7 +42,10 @@ func read(reader io.Reader) (wordlist []string, err error) {
 		_, word, _ := strings.Cut(scanner.Text(), "\t")
 		wordlist = append(wordlist, word)
 	}
-	return wordlist, err
+	if err := scanner.Err(); err != nil {
+		return wordlist, scanner.Err()
+	}
+	return wordlist, nil
 }
 
 func ValidateWord(word string) error {
