@@ -10,8 +10,6 @@ import (
 	"strings"
 )
 
-var dicewarePrefix = regexp.MustCompile(`\A[1-6]{5}\t`)
-
 // Wordlists contains all wordlists grouped by language.
 // Each new language file add a wordlist to this map with the corresponding
 // two-letter language code as key.
@@ -30,6 +28,7 @@ func ReadFile(filename string) (wordlist []string, err error) {
 
 // read reads and returns wordlist from reader.
 func read(reader io.Reader) ([]string, error) {
+	var dicewarePrefix = regexp.MustCompile(`\A[1-6]{5}\t`)
 	var wordlist []string
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
