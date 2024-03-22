@@ -21,13 +21,13 @@ func init() {
 
 func main() {
 	g := passphrase.Generator{}
-	flag.IntVar(&g.Words, "w", 4, "Number of words per passphrase.")
-	flag.StringVar(&g.Separator, "s", " ", "Separator between words.")
+	flag.IntVar(&g.Words, "w", 4, "Words per passphrase")
+	flag.StringVar(&g.Separator, "s", " ", "Separator between words")
 	flag.BoolVar(&g.Capitalize, "C", false, "Capitalize all words")
-	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase.")
-	flag.StringVar(&g.Language, "l", "de", "Language of wordlist.")
-	filename := flag.String("f", "", "Diceware wordlist file.")
-	passphrases := flag.Int("p", 1, "Number of passphrases")
+	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase")
+	flag.StringVar(&g.Language, "l", "de", "Language of wordlist")
+	filename := flag.String("f", "", "Diceware wordlist file")
+	passphrases := flag.Int("p", 1, "Passphrases")
 	flag.Parse()
 	var err error
 	if *filename != "" {
