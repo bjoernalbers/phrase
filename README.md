@@ -7,6 +7,18 @@ passwords made from random words.
 
 Clone this repo and build the binary via `make`.
 
+## Usage
+
+Generate random passphrase:
+
+    $ phrase
+    sattel metapher dorn mechanik
+
+Getting help:
+
+    $ phrase -h
+    ...
+
 ## Origin of wordlists
 
 The built-in wordlists (currently only german) come from these sources:
