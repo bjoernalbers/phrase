@@ -9,7 +9,7 @@ integration: build ## Run integration tests
 	go test integration_test.go
 
 build: ## Build binary
-	go build -ldflags '-X main.Version=$(VERSION)'
+	go build -ldflags '-X main.version=$(VERSION)'
 
 generate: ## Generate go wordlists from diceware wordlists
 	@for f in passphrase/*.txt; do rm -f "$${f%.txt}.go"; done

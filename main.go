@@ -14,8 +14,8 @@ import (
 	"github.com/bjoernalbers/phrase/passphrase"
 )
 
-// Version gets set via build flags
-var Version = "unset"
+// version gets set via build flags
+var version = "unset"
 
 func init() {
 	log.SetFlags(0)
@@ -34,7 +34,7 @@ func main() {
 	displayVersion := flag.Bool("V", false, "Display version and exit")
 	flag.Parse()
 	if *displayVersion {
-		fmt.Println(Version)
+		fmt.Println(version)
 		os.Exit(0)
 	}
 	var err error
