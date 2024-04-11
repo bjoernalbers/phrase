@@ -1,20 +1,20 @@
 all: unit integration ## Build binary and run all tests
 
 unit: ## Run unit tests
-	@go test ./...
+	go test ./...
 
 integration: build ## Run integration tests
-	@go test integration_test.go
+	go test integration_test.go
 
 build: ## Build binary
-	@go build
+	go build
 
 generate: ## Generate go wordlists from diceware wordlists
 	@for f in passphrase/*.txt; do rm -f "$${f%.txt}.go"; done
 	@go generate
 
 install: ## Install binary
-	@go install
+	go install
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
