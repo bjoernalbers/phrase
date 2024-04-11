@@ -14,6 +14,9 @@ import (
 	"github.com/bjoernalbers/phrase/passphrase"
 )
 
+// Version gets set via build flags
+var Version = "unset"
+
 func init() {
 	log.SetFlags(0)
 	log.SetPrefix(fmt.Sprintf("%s: ", filepath.Base(os.Args[0])))
@@ -28,7 +31,12 @@ func main() {
 	flag.StringVar(&g.Language, "l", "de", "Language of wordlist")
 	filename := flag.String("f", "", "Diceware wordlist file")
 	passphrases := flag.Int("p", 1, "Passphrases")
+	displayVersion := flag.Bool("V", false, "Display version and exit")
 	flag.Parse()
+	if *displayVersion {
+		fmt.Println(Version)
+		os.Exit(0)
+	}
 	var err error
 	if *filename != "" {
 		g.Wordlist, err = passphrase.ReadFile(*filename)

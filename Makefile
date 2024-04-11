@@ -1,3 +1,5 @@
+VERSION := $(shell git describe --tags | tr -d v)
+
 all: unit integration ## Build binary and run all tests
 
 unit: ## Run unit tests
@@ -7,7 +9,7 @@ integration: build ## Run integration tests
 	go test integration_test.go
 
 build: ## Build binary
-	go build
+	go build -ldflags '-X main.Version=$(VERSION)'
 
 generate: ## Generate go wordlists from diceware wordlists
 	@for f in passphrase/*.txt; do rm -f "$${f%.txt}.go"; done
