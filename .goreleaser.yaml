@@ -11,6 +11,3 @@ builds:
 
 archives:
   - format: binary
-
-changelog:
-  sort: empty
