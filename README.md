@@ -3,6 +3,10 @@
 `phrase` is a command-line tool to generate passphrases, that is
 passwords made from random words.
 
+## Installation
+
+Clone this repo and build the binary via `make`.
+
 ## Origin of wordlists
 
 The built-in wordlists (currently only german) come from these sources:
