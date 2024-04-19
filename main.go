@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/bjoernalbers/phrase/passphrase"
 )
@@ -31,7 +32,7 @@ func main() {
 	flag.StringVar(&g.Separator, "s", " ", "Separator between words")
 	flag.BoolVar(&g.Capitalize, "C", false, "Capitalize all words")
 	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase")
-	flag.StringVar(&g.Language, "l", "de", "Language of wordlist")
+	flag.StringVar(&g.Language, "l", "de", "Language of passphrase: "+strings.Join(languages(), ", "))
 	filename := flag.String("f", "", "Diceware wordlist file")
 	passphrases := flag.Int("p", 1, "Passphrases")
 	flag.Parse()
@@ -64,4 +65,13 @@ Homepage: %s
 	fmt.Fprintf(flag.CommandLine.Output(), header)
 	flag.PrintDefaults()
 	fmt.Fprintf(flag.CommandLine.Output(), footer)
+}
+
+// languages returns the names of all build-in wordlists
+func languages() []string {
+	list := []string{}
+	for language := range passphrase.Wordlists {
+		list = append(list, language)
+	}
+	return list
 }
