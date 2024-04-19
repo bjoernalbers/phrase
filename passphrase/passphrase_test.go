@@ -88,6 +88,12 @@ func TestRead(t *testing.T) {
 			[]string{"gopher"},
 			false,
 		},
+		{
+			"sort wordlist",
+			"11111\tghi\n11112\tabc\n11113\tdef\n",
+			[]string{"abc", "def", "ghi"},
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

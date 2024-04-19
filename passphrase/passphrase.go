@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"regexp"
+	"slices"
 )
 
 // Wordlists contains all wordlists grouped by language.
@@ -42,5 +43,6 @@ func read(reader io.Reader) (wordlist []string, err error) {
 	for word := range buffer {
 		wordlist = append(wordlist, word)
 	}
+	slices.Sort(wordlist)
 	return wordlist, nil
 }
