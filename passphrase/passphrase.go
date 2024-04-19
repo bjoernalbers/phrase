@@ -25,8 +25,8 @@ func ReadFile(filename string) (wordlist []string, err error) {
 }
 
 // read reads and returns wordlist from reader.
-func read(reader io.Reader) ([]string, error) {
-	var wordlist []string
+func read(reader io.Reader) (wordlist []string, err error) {
+	buffer := make(map[string]bool)
 	validLine := regexp.MustCompile(`\A[1-6]{5}\t(.+)\z`)
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
@@ -34,10 +34,13 @@ func read(reader io.Reader) ([]string, error) {
 		if len(match) == 0 {
 			continue
 		}
-		wordlist = append(wordlist, match[1])
+		buffer[match[1]] = true
 	}
 	if err := scanner.Err(); err != nil {
 		return wordlist, scanner.Err()
+	}
+	for word := range buffer {
+		wordlist = append(wordlist, word)
 	}
 	return wordlist, nil
 }

@@ -82,6 +82,12 @@ func TestRead(t *testing.T) {
 			[]string{},
 			false,
 		},
+		{
+			"ignore duplicate words",
+			"11111\tgopher\n11112\tgopher\n",
+			[]string{"gopher"},
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
