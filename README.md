@@ -32,6 +32,7 @@ Getting help:
 
 ## Origin of wordlists
 
-The built-in wordlists (currently only german) come from these sources:
+The built-in wordlists come from these sources:
 
 - [de](passphrase/de.txt): [bjoernalbers/diceware-wordlist-german](https://github.com/bjoernalbers/diceware-wordlist-german)
+- [en](passphrase/en.txt): [Electronic Frontier Foundation](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases)
