@@ -23,7 +23,7 @@ Clone this repo and build the binary via `make`.
 Generate random passphrase:
 
     $ phrase
-    sattel metapher dorn mechanik
+    correct horse battery staple
 
 Getting help:
 

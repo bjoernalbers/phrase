@@ -32,7 +32,7 @@ func main() {
 	flag.StringVar(&g.Separator, "s", " ", "Separator between words")
 	flag.BoolVar(&g.Capitalize, "C", false, "Capitalize all words")
 	flag.IntVar(&g.Digits, "d", 0, "Digits per passphrase")
-	flag.StringVar(&g.Language, "l", "de", "Language of passphrase: "+strings.Join(languages(), ", "))
+	flag.StringVar(&g.Language, "l", "en", "Language of passphrase: "+strings.Join(languages(), ", "))
 	filename := flag.String("f", "", "Diceware wordlist file")
 	passphrases := flag.Int("p", 1, "Passphrases")
 	flag.Parse()
