@@ -36,3 +36,4 @@ The built-in wordlists come from these sources:
 
 - [de](passphrase/de.txt): [bjoernalbers/diceware-wordlist-german](https://github.com/bjoernalbers/diceware-wordlist-german)
 - [en](passphrase/en.txt): [Electronic Frontier Foundation](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases)
+- [nl](passphrase/nl.txt): [Remko Tronçon](https://el-tramo.be/blog/diceware-nl)
