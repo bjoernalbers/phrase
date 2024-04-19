@@ -1,10 +1,11 @@
 package passphrase
 
 import (
-	"crypto/rand"
+	crand "crypto/rand"
 	"fmt"
 	"math"
 	"math/big"
+	"math/rand"
 	"strconv"
 	"strings"
 )
@@ -61,6 +62,9 @@ func (g *Generator) Phrase() (string, error) {
 			return "", err
 		}
 		passphrase = append(passphrase, strconv.Itoa(number))
+		rand.Shuffle(len(passphrase), func(i, j int) {
+			passphrase[i], passphrase[j] = passphrase[j], passphrase[i]
+		})
 	}
 	return strings.Join(passphrase, g.Separator), nil
 }
@@ -71,7 +75,7 @@ func randomInt(max int) (int, error) {
 	if max <= 0 {
 		return 0, fmt.Errorf("randomInt: max must be greater than zero")
 	}
-	r, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
+	r, err := crand.Int(crand.Reader, big.NewInt(int64(max)))
 	if err != nil {
 		return 0, fmt.Errorf("randomInt: %v", err)
 	}

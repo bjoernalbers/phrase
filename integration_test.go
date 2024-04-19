@@ -90,7 +90,7 @@ func TestIntegration(t *testing.T) {
 		{"change number of words", []string{"-w", "3", "-f", "testdata/gopher.txt"}, `^gopher gopher gopher\n$`, false},
 		{"change number of passphrases", []string{"-p", "3", "-w", "1", "-f", "testdata/gopher.txt"}, `^gopher\ngopher\ngopher\n$`, false},
 		{"change separator", []string{"-s", "-", "-f", "testdata/gopher.txt"}, `^gopher-gopher-gopher-gopher\n$`, false},
-		{"add digits", []string{"-d", "3"}, ` [0-9]{3}\n$`, false},
+		{"add digits", []string{"-d", "3"}, `\W[0-9]{3}\W`, false},
 		{"capitalize words", []string{"-C", "-f", "testdata/gopher.txt"}, `^Gopher Gopher Gopher Gopher\n$`, false},
 		{"missing wordlist", []string{"-f", "this-file-does-not-exist"}, `this-file-does-not-exist`, true},
 		{"display version", []string{"-V"}, `(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?`, false},
