@@ -85,7 +85,8 @@ func TestIntegration(t *testing.T) {
 		wantErr bool
 	}{
 		{"default output", nil, `^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}\n$`, false},
-		{"display usage", []string{"-h"}, `Usage`, false},
+		{"display help", []string{"-h"}, `Usage`, false},
+		{"display version", []string{"-h"}, `(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?`, false},
 		{"change wordlist", []string{"-f", "testdata/gopher.txt"}, `^gopher gopher gopher gopher\n$`, false},
 		{"change number of words", []string{"-w", "3", "-f", "testdata/gopher.txt"}, `^gopher gopher gopher\n$`, false},
 		{"change number of passphrases", []string{"-p", "3", "-w", "1", "-f", "testdata/gopher.txt"}, `^gopher\ngopher\ngopher\n$`, false},
@@ -93,7 +94,6 @@ func TestIntegration(t *testing.T) {
 		{"add digits", []string{"-d", "3"}, `\W[0-9]{3}\W`, false},
 		{"capitalize words", []string{"-C", "-f", "testdata/gopher.txt"}, `^Gopher Gopher Gopher Gopher\n$`, false},
 		{"missing wordlist", []string{"-f", "this-file-does-not-exist"}, `this-file-does-not-exist`, true},
-		{"display version", []string{"-V"}, `(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?`, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
