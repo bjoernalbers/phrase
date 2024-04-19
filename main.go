@@ -14,12 +14,15 @@ import (
 	"github.com/bjoernalbers/phrase/passphrase"
 )
 
-// version gets set via build flags
-var version = "unset"
+var (
+	version  = "unset" // version gets set via build flags
+	homepage = "https://github.com/bjoernalbers/phrase"
+)
 
 func init() {
 	log.SetFlags(0)
 	log.SetPrefix(fmt.Sprintf("%s: ", filepath.Base(os.Args[0])))
+	flag.Usage = usage
 }
 
 func main() {
@@ -51,4 +54,19 @@ func main() {
 		}
 		fmt.Println(passphrase)
 	}
+}
+
+func usage() {
+	header := fmt.Sprintf(`phrase - the passphrase generator (version %s)
+
+Generate easy-to-remember passwords from random words.
+
+Usage:
+`, version)
+	footer := fmt.Sprintf(`
+Homepage: %s
+`, homepage)
+	fmt.Fprintf(flag.CommandLine.Output(), header)
+	flag.PrintDefaults()
+	fmt.Fprintf(flag.CommandLine.Output(), footer)
 }

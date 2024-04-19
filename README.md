@@ -1,7 +1,7 @@
 # phrase - the passphrase generator
 
-`phrase` is a command-line tool to generate passphrases, that is
-passwords made from random words.
+`phrase` is a command-line tool to generate easy-to-remember passwords from
+random words.
 
 ## Installation
 

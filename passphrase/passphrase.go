@@ -1,5 +1,4 @@
-// Package passphrase provides tools to generate passphrases,
-// that is passwords made from random words.
+// Package passphrase generates easy-to-remember passwords from random words.
 package passphrase
 
 import (

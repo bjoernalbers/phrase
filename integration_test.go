@@ -85,7 +85,7 @@ func TestIntegration(t *testing.T) {
 		wantErr bool
 	}{
 		{"default output", nil, `^[a-z]{3,9} [a-z]{3,9} [a-z]{3,9} [a-z]{3,9}\n$`, false},
-		{"display usage", []string{"-h"}, `^Usage`, false},
+		{"display usage", []string{"-h"}, `Usage`, false},
 		{"change wordlist", []string{"-f", "testdata/gopher.txt"}, `^gopher gopher gopher gopher\n$`, false},
 		{"change number of words", []string{"-w", "3", "-f", "testdata/gopher.txt"}, `^gopher gopher gopher\n$`, false},
 		{"change number of passphrases", []string{"-p", "3", "-w", "1", "-f", "testdata/gopher.txt"}, `^gopher\ngopher\ngopher\n$`, false},
