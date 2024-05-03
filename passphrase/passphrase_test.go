@@ -8,7 +8,7 @@ import (
 
 func TestWordlists(t *testing.T) {
 	const wordlistSize = 7776
-	validWord := regexp.MustCompile(`\A[a-z-]{2,9}\z`)
+	validWord := regexp.MustCompile(`\A[a-z-]{2,13}\z`)
 	for language, wordlist := range Wordlists {
 		t.Run(language, func(t *testing.T) {
 			if got := len(wordlist); got != wordlistSize {

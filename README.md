@@ -38,4 +38,5 @@ The built-in wordlists come from these sources:
 
 - [`de`](https://raw.githubusercontent.com/bjoernalbers/diceware-wordlist-german/main/wordlist-german-diceware.txt): Copyright by [Björn Albers](https://github.com/bjoernalbers/diceware-wordlist-german) ([MIT License](https://github.com/bjoernalbers/diceware-wordlist-german/blob/main/LICENSE))
 - [`en`](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt): Copyright by [Electronic Frontier Foundation](https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases) ([Creative Commons Attribution License](https://www.eff.org/copyright))
+- [`fr`](https://raw.githubusercontent.com/ArthurPons/diceware-fr-alt/master/diceware-fr-alt.txt): Copyright by [Arthur Pons](https://github.com/ArthurPons/diceware-fr-alt) ([MIT License](https://github.com/ArthurPons/diceware-fr-alt/blob/master/LICENSE))
 - [`nl`](https://mko.re/diceware/diceware-wordlist-composites-nl.txt): Copyright by [Remko Tronçon](https://el-tramo.be/blog/diceware-nl) ([MIT License](https://github.com/remko/dicewords/blob/master/LICENSE))
